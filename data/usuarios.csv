@@ -1,0 +1,3 @@
+username,password_hash,nickname,avatar,role,banned,created_date,last_login
+Drifter_akuma,scrypt:32768:8:1$4jltHjrNXo6v7gRx$f2a3f2849681cc790a5ba1c338e12c50d428e1a95fc4d81863f2ad92baf679bc390d389be682a8a893eca4fc31919555574e2f519a9ac2cf9d2d99d0dfe72ec3,Akuma,default.png,user,False,2025-06-06 08:27:51,2025-06-06 08:27:59
+usuario1,scrypt:32768:8:1$oAJZwJq6ptfRvz1j$103c17b6b81b400cbf7a6307798bf99cb8297dbf14af2bb614e4b774066904cebcbdb1f05ea028cb74a87854403dc571fa48b4fae81be35aaa871b7633e21c8f,user,default.png,user,False,2025-06-06 19:51:23,2025-06-06 19:54:48

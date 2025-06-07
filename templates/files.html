@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivos - Hello ESIME</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/files.css') }}">
+</head>
+<body>
+    <div class="files-container">
+        <div class="files-header">
+            <div class="nav-menu">
+                <a href="{{ url_for('index') }}" class="nav-item">Chat</a>
+                <a href="{{ url_for('list_files') }}" class="nav-item active">Archivos</a>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Cerrar sesión</a>
+            </div>
+            <div class="upload-section">
+                <form id="upload-form" enctype="multipart/form-data">
+                    <input type="file" id="file-input" name="file">
+                    <button type="submit">Subir Archivo</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="files-list">
+            {% if files %}
+                {% for file in files %}
+                <div class="file-item">
+                    <div class="file-info">
+                        <span class="file-name">{{ file.name }}</span>
+                        <span class="file-size">{{ (file.size / 1024)|round(1) }} KB</span>
+                        <span class="file-date">{{ file.date }}</span>
+                    </div>
+                    <a href="{{ url_for('download_file', filename=file.name) }}" class="download-btn">Descargar</a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-files">No hay archivos compartidos</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/files.js') }}"></script>
+</body>
+</html>

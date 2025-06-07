@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Hello ESIME</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+</head>
+<body>
+    <div class="main-container">
+        <div class="chat-section">
+            <div class="chat-header">
+                <h1>Hello ESIME Chat</h1>
+                <div class="user-info">
+                    <span>{{ session.username }}</span>
+                    <a href="{{ url_for('logout') }}" class="logout-btn">Cerrar sesión</a>
+                </div>
+            </div>
+            <div class="chat-messages" id="messages">
+                {% for message in chat_history %}
+                <div class="message {% if message.sender == session.username %}sent{% else %}received{% endif %}">
+                    <div class="message-content">
+                        <span class="message-sender">{{ message.sender }}</span>
+                        <p class="message-text">{{ message.message }}</p>
+                        <span class="message-time">{{ message.timestamp }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="chat-input">
+                <form id="message-form">
+                    <input type="text" id="message" placeholder="Escribe un mensaje..." required>
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="files-section">
+            <div class="files-header">
+                <h2>Archivos Compartidos</h2>
+                <div class="upload-section">
+                    <form id="upload-form" enctype="multipart/form-data">
+                        <input type="file" id="file-input" name="file">
+                        <button type="submit">Subir</button>
+                    </form>
+                </div>
+            </div>
+            <div class="files-list" id="files-list">
+                {% for file in files %}
+                <div class="file-item">
+                    <div class="file-info">
+                        <span class="file-name">{{ file.name }}</span>
+                        <span class="file-size">{{ (file.size / 1024)|round(1) }} KB</span>
+                        <span class="file-date">{{ file.date }}</span>
+                    </div>
+                    <a href="{{ url_for('download_file', filename=file.name) }}" class="download-btn">Descargar</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        const username = "{{ session.username }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>
